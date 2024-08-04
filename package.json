@@ -1,0 +1,30 @@
+{
+  "name": "@pythnetwork/eth-coin-flip-example",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@pythnetwork/entropy-sdk-solidity": "^1.5.0",
+    "@pythnetwork/pyth-evm-js": "*",
+    "@pythnetwork/pyth-sdk-solidity": "*",
+    "@truffle/hdwallet-provider": "^2.1.15",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.11.64",
+    "buffer": "^6.0.3",
+    "ethers": "^5.7.2",
+    "prettier": "^2.7.1",
+    "web3": "^4.11.1",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@tsconfig/node18": "^18.2.4",
+    "@types/yargs": "^17.0.32",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.5.4"
+  },
+  "scripts": {
+    "build": "tsc",
+    "flip-coin": "npm run build && node lib/flip_coin.js",
+    "reveal-result": "npm run build && node lib/reveal-result.js",
+    "format": "prettier --write src/"
+  }
+}
