@@ -1,0 +1,6 @@
+node_modules
+lib
+.dccache
+*mnemonic*
+package-lock.json
+.next

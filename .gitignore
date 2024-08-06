@@ -3,3 +3,4 @@ lib
 .dccache
 *mnemonic*
 package-lock.json
+.next
