@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@openzeppelin/contracts": "^5.0.2",
     "@pythnetwork/entropy-sdk-solidity": "^1.5.0",
     "@pythnetwork/pyth-evm-js": "*",
     "@pythnetwork/pyth-sdk-solidity": "*",
