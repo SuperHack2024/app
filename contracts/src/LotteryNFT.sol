@@ -32,8 +32,8 @@ contract LotteryNFT is ERC721, ERC721URIStorage, Ownable, IEntropyConsumer {
     uint256 public ticketPrice;
     address public winnerAnnounced;
 
-    address private entropy_contract= 0x41c9e39574F40Ad34c79f1C99B66A45eFB830d4c;
-    address private entropy_provider= 0x6CC14824Ea2918f5De5C2f75A9Da968ad4BD6344;
+    address private entropy_contract= 0x41c9e39574F40Ad34c79f1C99B66A45eFB830d4c; // Base Address
+    address private entropy_provider= 0x6CC14824Ea2918f5De5C2f75A9Da968ad4BD6344; // Provider in Testnet
     
     struct WinnerRequest {
         address sender;
