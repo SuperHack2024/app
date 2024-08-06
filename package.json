@@ -24,7 +24,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "flip-coin": "npm run build && node lib/flip_coin.js",
+    "lottery-nft": "npm run build && node lib/lottery_nft.js",
     "reveal-result": "npm run build && node lib/reveal-result.js",
     "format": "prettier --write src/"
   }

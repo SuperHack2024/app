@@ -63,23 +63,24 @@ contract LotteryNFT is ERC721, ERC721URIStorage, Ownable, IEntropyConsumer {
         fee = entropy.getFee(entropyProvider);
     }
 
-    function drawWinner(bytes32 userRandomNumber) public payable onlyOwner returns (uint64 _sequenceNumber) {
+    function drawWinner(bytes32 userRandomNumber) public payable onlyOwner {
         require(participants.length > 0, "No participants in the lottery");
         uint128 requestFee = entropy.getFee(entropyProvider);
         if (msg.value < requestFee) {
             revert LotteryNFTErrors.InsufficientFee();
         }
 
-        _sequenceNumber = entropy.requestWithCallback{value: requestFee}(
+        uint64 sequenceNumber  = entropy.requestWithCallback{value: requestFee}(
                     entropyProvider,
                     userRandomNumber
                 );
 
-        pendingWinnerRequests[_sequenceNumber] = WinnerRequest({
+        pendingWinnerRequests[sequenceNumber] = WinnerRequest({
             sender: msg.sender,
             timestamp: block.timestamp
         });
 
+        emit WinnerRequestEvent(sequenceNumber);
         //Clear participants array and set counter to 0 TODO if we are going to keep the participants or not.
         //delete participants;
         //tokenCounter = 0; 

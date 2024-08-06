@@ -49,13 +49,7 @@
       }
     ],
     "name": "drawWinner",
-    "outputs": [
-      {
-        "internalType": "uint64",
-        "name": "_sequenceNumber",
-        "type": "uint64"
-      }
-    ],
+    "outputs": [],
     "stateMutability": "payable",
     "type": "function"
   },

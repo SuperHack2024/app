@@ -139,10 +139,6 @@ async function main() {
         } else {
           console.log("waiting for more result...");
         }
-
-        // console.log(
-        //   `   result    : ${event.returnValues.isHeads ? "Heads" : "Tails"}`
-        // );
       }
     }, 1000);
   } catch (e) {
