@@ -4,37 +4,15 @@ import { hideBin } from "yargs/helpers";
 import HDWalletProvider from "@truffle/hdwallet-provider";
 import LotteryNFTAbi from "./LotteryNFTAbi.json";
 
-const parser = yargs(hideBin(process.argv))
-  .option("private-key", {
-    description: "Private key (as a hexadecimal string) of the sender",
-    type: "string",
-    required: true,
-  })
-  .option("address", {
-    description: "The address of the Lottery NFT contract",
-    type: "string",
-    required: true,
-  })
-  .option("rpc-url", {
-    description:
-      "The URL of an ETH RPC service for reading/writing to the blockchain",
-    type: "string",
-    required: true,
-  })
-  .help()
-  .alias("help", "h")
-  .parserConfiguration({
-    "parse-numbers": false,
-  });
-
 async function main() {
-  const argv = await parser.argv;
+  // const argv = await parser.argv;
 
-  const LotteryNFTAddress = argv.address;
-  const rpc = argv.rpcUrl;
-  const privateKey = argv.privateKey;
+  const LotteryAddress = "0x93773981c31208F2cAfe8422A6b30ff1c9AAa6b2";
+  const rpc = "https://sepolia.base.org";
 
-  console.log("LotteryNFTAddress", LotteryNFTAddress);
+  const privateKey = "Your PK";
+
+  console.log("LotteryNFTAddress", LotteryAddress);
   console.log("rpc", rpc);
   console.log("privateKey", privateKey);
 
@@ -45,9 +23,9 @@ async function main() {
 
   const web3 = new Web3(provider as any);
 
-  const LotteryNFTContract = new web3.eth.Contract(
+  const LotteryContract = new web3.eth.Contract(
     LotteryNFTAbi as any,
-    LotteryNFTAddress
+    LotteryAddress
   );
 
   console.log("1. Generating user's random number...");
@@ -55,7 +33,7 @@ async function main() {
   console.log(`   UseerRandomNumber is    : ${randomNumber}`);
 
   console.log("2. Requesting fee...");
-  const fee = (await LotteryNFTContract.methods
+  const fee = (await LotteryContract.methods
     .getWinnerSelectionFee()
     .call()) as string;
   console.log(`   Fee    is   : ${fee} wei`);
@@ -63,7 +41,7 @@ async function main() {
   try {
     console.log("Calling Winner");
 
-    const receipt = await LotteryNFTContract.methods
+    const receipt = await LotteryContract.methods
       .drawWinner(randomNumber)
       .send({ value: fee, from: provider.getAddress(0) });
 
@@ -84,13 +62,10 @@ async function main() {
         return;
       }
 
-      const events = await LotteryNFTContract.getPastEvents(
-        "WinnerResultEvent",
-        {
-          fromBlock: fromBlock,
-          toBlock: currentBlock,
-        }
-      );
+      const events = await LotteryContract.getPastEvents("WinnerResultEvent", {
+        fromBlock: fromBlock,
+        toBlock: currentBlock,
+      });
       console.log("fromBlock ", fromBlock);
       console.log("currentBlock", currentBlock);
 

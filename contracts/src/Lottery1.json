@@ -1,12 +1,6 @@
 [
   {
-    "inputs": [
-      {
-        "internalType": "enum Lottery.LotteryType",
-        "name": "_lotteryType",
-        "type": "uint8"
-      }
-    ],
+    "inputs": [],
     "stateMutability": "payable",
     "type": "constructor"
   },
@@ -207,6 +201,25 @@
       }
     ],
     "name": "BatchMetadataUpdate",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "lottery",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "ContractLotteryType1Funded",
     "type": "event"
   },
   {
@@ -440,6 +453,13 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "payable",
     "type": "function"
   },
   {
