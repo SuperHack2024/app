@@ -1,31 +1,32 @@
 {
-	"name": "with-next",
-	"version": "0.1.0",
-	"private": true,
-	"scripts": {
-		"dev": "next dev",
-		"build": "next build",
-		"start": "next start",
-		"lint": "next lint"
-	},
-	"dependencies": {
-		"@emotion/react": "^11.11.1",
-		"@emotion/styled": "^11.11.0",
-		"@mui/icons-material": "^5.14.6",
-		"@mui/lab": "^5.0.0-alpha.141",
-		"@mui/material": "^5.14.6",
-		"@worldcoin/idkit": "^1.2.2",
-		"next": "14.0.2",
-		"react": "^18",
-		"react-dom": "^18",
-		"swr": "^2.2.5"
-	},
-	"devDependencies": {
-		"@types/node": "^20",
-		"@types/react": "^18",
-		"@types/react-dom": "^18",
-		"eslint": "^8",
-		"eslint-config-next": "13.5.5",
-		"typescript": "^5"
-	}
+  "name": "with-next",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.6",
+    "@mui/lab": "^5.0.0-alpha.141",
+    "@mui/material": "^5.14.6",
+    "@worldcoin/idkit": "^1.2.2",
+    "next-auth": "^4.24.7",
+    "next": "14.0.2",
+    "react": "^18",
+    "react-dom": "^18",
+    "swr": "^2.2.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "13.5.5",
+    "typescript": "^5"
+  }
 }
