@@ -20,9 +20,11 @@ import Head from "next/head";
 import Header from "../components/Header";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getServerSession(context.req, context.res, authOptions);
+
   return {
     props: {
-      session: await getServerSession(context.req, context.res, authOptions),
+      session: JSON.stringify(session),
     },
   };
 }
