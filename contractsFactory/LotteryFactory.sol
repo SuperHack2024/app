@@ -33,13 +33,14 @@ contract LotteryFactory {
 
     function createLottery(LotteryType _lotteryType, uint256 _ticketPrice) public payable {
         Lottery newLottery;
+        address sender = msg.sender;  
 
         if (_lotteryType == LotteryType.Type1) {
             newLottery = new LotteryType1{value: msg.value}();
-            LotteryType1(payable(address(newLottery))).initialize(address(newLottery)); // Initialize Type1 with msg.value
+            LotteryType1(payable(address(newLottery))).initialize(sender); // Initialize Type1 with msg.value
         } else if (_lotteryType == LotteryType.Type2) {
             newLottery = new LotteryType2(_ticketPrice);
-            LotteryType2(payable(address(newLottery))).initialize(_ticketPrice); // Initialize Type2 with ticket price
+            LotteryType2(payable(address(newLottery))).initialize(sender,_ticketPrice); // Initialize Type2 with ticket price
         } else {
             revert("Invalid lottery type");
         }

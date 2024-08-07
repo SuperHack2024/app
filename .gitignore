@@ -4,3 +4,4 @@ lib
 *mnemonic*
 package-lock.json
 .next
+.env

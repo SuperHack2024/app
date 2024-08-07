@@ -1,5 +1,5 @@
 {
-  "name": "@pythnetwork/eth-coin-flip-example",
+  "name": "LotteryNFT-pyth-entropy",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -24,8 +24,9 @@
   },
   "scripts": {
     "build": "tsc",
-    "lottery-nft": "npm run build && node lib/lottery_nft.js",
-    "reveal-result": "npm run build && node lib/reveal-result.js",
+    "buy-ticket": "npm run build && node lib/1_buy_ticket.js",
+    "get-lottery-info": "npm run build && node lib/2_get_lottery_info.js",
+    "select-winner": "npm run build && node lib/3_select_winner.js",
     "format": "prettier --write src/"
   }
 }

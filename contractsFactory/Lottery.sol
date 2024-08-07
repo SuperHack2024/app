@@ -70,11 +70,14 @@ contract Lottery is ERC721, ERC721URIStorage, Ownable, IEntropyConsumer {
     }
 
     function setPrize() public payable {
-        require(msg.value > 0, "Must send some Ether to set the prize");
+        require(msg.value >= 0, "Must send some Ether to set the prize");
        
         contractBalance += msg.value;
         
     }
+
+ 
+    
 
     function setTicketPrice(uint256 _ticketPrice) public {
         ticketPrice = _ticketPrice;

@@ -7,7 +7,8 @@ contract LotteryType2 is Lottery {
     constructor(uint256 _ticketPrice) Lottery(LotteryType.Type2) payable {ticketPrice = _ticketPrice;}
     
     // Type2 sets the ticket price 
-    function initialize(uint256 _ticketPrice) public {
+    function initialize( address creator,uint256 _ticketPrice) public {
+        transferOwnership(creator);
         setTicketPrice(_ticketPrice);
     }
 }
