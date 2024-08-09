@@ -19,7 +19,7 @@ contract LotteryFactory {
     event LotteryContractAddress(address lottery); // Event for not found lottery
 
 
-
+ 
     uint256 private lotteryId;
     // mapping(uint256 => LotteryNFT) public idToLottery;
     // mapping(address => uint256) public lotteryOwners;
@@ -31,24 +31,39 @@ contract LotteryFactory {
 
     event LotteryCreated(address lotteryAddress, LotteryType lotteryType);
 
-    function createLottery(LotteryType _lotteryType, uint256 _ticketPrice) public payable {
-        Lottery newLottery;
+    function createLottery(LotteryType _lotteryType, uint256 _ticketPrice) public payable  {
+       
         address sender = msg.sender;  
 
         if (_lotteryType == LotteryType.Type1) {
-            newLottery = new LotteryType1{value: msg.value}();
-            LotteryType1(payable(address(newLottery))).initialize(sender); // Initialize Type1 with msg.value
+            Lottery newLottery;
+            require(msg.value > 0, "No Ether sent Factory...");
+
+            // newLottery = new LotteryType1{value: msg.value}(address(newLottery));
+
+            newLottery = new LotteryType1{value: msg.value}(sender);
+            //LotteryType1(payable(address(newLottery))).initialize{value: msg.value}(sender);
+            LotteryType1(payable(address(newLottery))).initialize(sender);
+
+            lotteries.push(newLottery);
+             emit LotteryCreated(address(newLottery), _lotteryType);
+
+
+            //LotteryType1(payable(address(newLottery))).initialize(sender); // Initialize Type1 with msg.value
         } else if (_lotteryType == LotteryType.Type2) {
+            Lottery newLottery;
             newLottery = new LotteryType2(_ticketPrice);
             LotteryType2(payable(address(newLottery))).initialize(sender,_ticketPrice); // Initialize Type2 with ticket price
+            lotteries.push(newLottery);
+             emit LotteryCreated(address(newLottery), _lotteryType);
+
         } else {
             revert("Invalid lottery type");
         }
 
         // Store the deployed contract's address
-        lotteries.push(newLottery);
 
-        emit LotteryCreated(address(newLottery), _lotteryType);
+       
     }
 
     // constructor(LotteryType _lotteryType) payable {
