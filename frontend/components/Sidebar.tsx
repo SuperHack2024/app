@@ -141,10 +141,7 @@ export default function PersistentDrawerLeft() {
         <List>
           {menuItems.map((item, index) => (
             <Link
-              href={
-                // "/" + (item.name === "email log" ? "email-log" : item.name)
-                "/" + getFormattedName(item.name)
-              }
+              href={"/" + getFormattedName(item.name)}
               key={index}
               passHref
               onClick={handleDrawerClose}
@@ -157,21 +154,6 @@ export default function PersistentDrawerLeft() {
                     ) : (
                       <></>
                     )}
-                    {/* {item.name === "Rate Cards" ? (
-                      <DataArrayIcon sx={{ color: "white" }} />
-                    ) : (
-                      <></>
-                    )}
-                    {item.name === "Variant Rate Cards" ? (
-                      <Grid4x4Icon sx={{ color: "white" }} />
-                    ) : (
-                      <></>
-                    )}
-                    {item.name === "carriers" ? (
-                      <FireTruckIcon sx={{ color: "white" }} />
-                    ) : (
-                      <></>
-                    )} */}
                   </ListItemIcon>
                   <ListItemText
                     primary={
