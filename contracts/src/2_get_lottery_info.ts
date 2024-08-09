@@ -2,8 +2,7 @@ import Web3 from "web3";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import HDWalletProvider from "@truffle/hdwallet-provider";
-import Lottery from "./Lottery.json";
-import Lottery1 from "./Lottery1.json";
+import Lottery from "./LotteryNFTAbi.json";
 
 const parser = yargs(hideBin(process.argv))
   .option("private-key", {
@@ -29,10 +28,10 @@ const parser = yargs(hideBin(process.argv))
   });
 
 async function main() {
-  const LotteryAddress = "0x93773981c31208F2cAfe8422A6b30ff1c9AAa6b2";
-  const rpc = "https://sepolia.base.org";
+  const LotteryAddress = "0x3504Dc10a962b8Df1e570a8d61F6E3651051a455";
+  const rpc = "https://84532.rpc.thirdweb.com/8a44946670297b87aa3e12d0aafde17d";
 
-  const privateKey = "Your PK";
+  const privateKey = "YOUR_PK"; //account 7
 
   const provider = new HDWalletProvider({
     privateKeys: [privateKey],
@@ -45,11 +44,6 @@ async function main() {
     const LotteryContract = new web3.eth.Contract(
       Lottery as any,
       LotteryAddress
-    );
-
-    const LotteryProxy = new web3.eth.Contract(
-      Lottery1 as any,
-      "0x2F76D054cfEa3124367abaf8BFE2a403Cbd36c1F"
     );
 
     console.log("1. Requesting Ticket Price...");
@@ -68,6 +62,14 @@ async function main() {
     const balanceWei = await web3.eth.getBalance(LotteryAddress);
     const balanceEther = web3.utils.fromWei(balanceWei, "ether");
     console.log(`   Balance of Lottery is: ${balanceEther} ether`);
+
+    const owner = (await LotteryContract.methods.owner().call()) as string;
+    console.log(`   Owner of Lottery is: ${owner}  `);
+
+    const winnerAnnounced = (await LotteryContract.methods
+      .winnerAnnounced()
+      .call()) as string;
+    console.log(`   winner of Lottery is: ${winnerAnnounced}  `);
   } catch (e) {
     console.log("Exception: ", e);
   }

@@ -7,10 +7,10 @@ import LotteryNFTAbi from "./LotteryNFTAbi.json";
 async function main() {
   // const argv = await parser.argv;
 
-  const LotteryAddress = "0x93773981c31208F2cAfe8422A6b30ff1c9AAa6b2";
+  const LotteryAddress = "0x3504Dc10a962b8Df1e570a8d61F6E3651051a455";
   const rpc = "https://sepolia.base.org";
 
-  const privateKey = "Your PK";
+  const privateKey = "YOUR_PK"; //account 7
 
   console.log("LotteryNFTAddress", LotteryAddress);
   console.log("rpc", rpc);

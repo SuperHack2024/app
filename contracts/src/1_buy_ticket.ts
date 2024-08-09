@@ -2,7 +2,7 @@ import Web3 from "web3";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import HDWalletProvider from "@truffle/hdwallet-provider";
-import Lottery from "./Lottery.json";
+import Lottery from "./LotteryNFTAbi.json";
 
 const parser = yargs(hideBin(process.argv))
   .option("private-key", {
@@ -28,10 +28,10 @@ const parser = yargs(hideBin(process.argv))
   });
 
 async function main() {
-  const LotteryAddress = "0x93773981c31208F2cAfe8422A6b30ff1c9AAa6b2";
+  const LotteryAddress = "0x69e6851B0a0C5D94122AbdFDD4D190a4F9508d97";
   const rpc = "https://sepolia.base.org";
 
-  const privateKey = "Your PK";
+  const privateKey = "YOUR_PK"; //account 7
 
   const provider = new HDWalletProvider({
     privateKeys: [privateKey],
