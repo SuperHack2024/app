@@ -25,7 +25,7 @@ export default function CreateLottery() {
   const [selectedValue, setSelectedValue] = useState("giveaway");
 
   // Handler function for when the radio button value changes
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(event.target.value);
     console.log("selected value changed", selectedValue);
   };

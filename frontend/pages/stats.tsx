@@ -37,12 +37,11 @@ export default function Stats() {
             display: "flex",
             marginLeft: "50px",
             marginRight: "50px",
+            marginTop: "20vh",
             alignItems: "center",
-
             backgroundColor: "white",
             color: "black",
             flexDirection: "column",
-            gap: 5,
           }}
         >
           <Box
@@ -50,11 +49,9 @@ export default function Stats() {
               display: "flex",
               gap: 5,
               width: "100%",
-              height: "100vh",
               justifyContent: "center",
               alignItems: "center",
               flexDirection: "  column",
-              mt: "10vh",
             }}
           >
             {list_lotto.map((item, key) => (

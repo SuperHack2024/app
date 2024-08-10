@@ -24,7 +24,6 @@ const drawerWidth = 240;
 const menuItems = [
   { name: "Create Lottery", icon: "" },
   { name: "Stats", icon: "" },
-  { name: "Dashboard", icon: "" },
 ];
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
