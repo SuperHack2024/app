@@ -80,6 +80,10 @@ export default function PersistentDrawerLeft() {
   function getFormattedName(name: string) {
     if (name === "Create Lottery") {
       return "create-lottery";
+    } else if (name === "Stats") {
+      return "stats";
+    } else if (name === "Dashboard") {
+      return "dashboard";
     } else {
       return name;
     }

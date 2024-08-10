@@ -8,10 +8,20 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import { Box, Typography, TextField, Button } from "@mui/material";
+import { useReadContract, useWriteContract } from "wagmi";
+// import LotteryABI from "../abis/Lottery.json";
 
-import useMediaQuery from "@mui/material/useMediaQuery";
+const LotteryFactory = "0xA955C832Fc6c74c1143356F115e8CBEAAe514fB2";
 
 export default function CreateLottery() {
+  // const { writeContract } = useWriteContract();
+
+  // const { data: owner, error } = useReadContract({
+  //   abi: LotteryABI,
+  //   address: LotteryAddress,
+  //   functionName: "owner",
+  // });
+
   const [selectedValue, setSelectedValue] = useState("giveaway");
 
   // Handler function for when the radio button value changes
@@ -19,7 +29,6 @@ export default function CreateLottery() {
     setSelectedValue(event.target.value);
     console.log("selected value changed", selectedValue);
   };
-  const isSmallScreen = useMediaQuery("(max-width:600px)");
 
   return (
     <>
@@ -76,12 +85,7 @@ export default function CreateLottery() {
             variant="filled"
             disabled={selectedValue === "giveaway" ? true : false}
           />
-          <Button
-            onClick={() => {
-              console.log("creating lottery ");
-            }}
-            variant="contained"
-          >
+          <Button onClick={() => {}} variant="contained">
             Create Lottery
           </Button>
         </Box>
