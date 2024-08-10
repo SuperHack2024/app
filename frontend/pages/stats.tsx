@@ -1,50 +1,103 @@
 import PersistentDrawerLeft from "@/components/Sidebar";
 import Footer from "@/components/Footer";
+import { Box, LinearProgress } from "@mui/material";
+import { useReadContract } from "wagmi";
+import LotteryABI from "../abis/LotteryFactory.json";
 import Lottery from "@/components/Lottery";
-import { useState } from "react";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import { Box, Typography, TextField, Button } from "@mui/material";
 
-import useMediaQuery from "@mui/material/useMediaQuery";
+export default function Stats() {
+  const lotteryFactoryAddress = process.env.LOTTERYFACTORY_CONTRACT;
 
-export default function CreateLottery() {
-  const [selectedValue, setSelectedValue] = useState("giveaway");
+  const {
+    data: lotteries,
+    isLoading,
+    error,
+  } = useReadContract({
+    abi: LotteryABI,
+    address: lotteryFactoryAddress as `0x${string}`,
+    functionName: "getLotteries",
+  });
 
-  return (
-    <>
-      <PersistentDrawerLeft />
-      <Box
-        sx={{
-          display: "flex",
-          marginLeft: "50px",
-          marginRight: "50px",
-          alignItems: "center",
+  if (isLoading) {
+    return (
+      <>
+        <PersistentDrawerLeft />
+        <LinearProgress />
+      </>
+    );
+  }
 
-          backgroundColor: "white",
-          color: "black",
-          flexDirection: "column",
-          gap: 5,
-        }}
-      >
+  const list_lotto: [] = lotteries as [];
+  if (lotteries) {
+    return (
+      <>
+        <PersistentDrawerLeft />
         <Box
           sx={{
             display: "flex",
-            gap: 5,
-            width: "100%",
-            height: "100vh",
-            justifyContent: "center",
+            marginLeft: "50px",
+            marginRight: "50px",
             alignItems: "center",
+
+            backgroundColor: "white",
+            color: "black",
             flexDirection: "column",
+            gap: 5,
           }}
         >
-          STATS
+          <Box
+            sx={{
+              display: "flex",
+              gap: 5,
+              width: "100%",
+              height: "100vh",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "  column",
+              mt: "10vh",
+            }}
+          >
+            {list_lotto.map((item, key) => (
+              <Lottery item={item} key={key} />
+            ))}
+          </Box>
         </Box>
-      </Box>
-      <Footer />
-    </>
-  );
+      </>
+    );
+  }
+
+  if (error)
+    return (
+      <>
+        <PersistentDrawerLeft />
+        <Box
+          sx={{
+            display: "flex",
+            marginLeft: "50px",
+            marginRight: "50px",
+            alignItems: "center",
+
+            backgroundColor: "white",
+            color: "black",
+            flexDirection: "column",
+            gap: 5,
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              gap: 5,
+              width: "100%",
+              height: "100vh",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            Something ocurred.
+          </Box>
+        </Box>
+        <Footer />
+      </>
+    );
 }

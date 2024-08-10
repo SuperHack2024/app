@@ -9,7 +9,7 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import { Box, Typography, TextField, Button } from "@mui/material";
 import { useReadContract, useWriteContract } from "wagmi";
-// import LotteryABI from "../abis/Lottery.json";
+import LotteryABI from "../abis/Lottery.json";
 
 const LotteryFactory = "0xA955C832Fc6c74c1143356F115e8CBEAAe514fB2";
 
