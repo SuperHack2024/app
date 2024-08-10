@@ -6,6 +6,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { ListItemText } from "@mui/material";
+import Link from "next/link";
 interface LotteryProps {
   item: any; // Replace `any` with the actual type of `item`
   key: number;
@@ -23,9 +24,11 @@ const Lottery: React.FC<LotteryProps> = ({ item, key }) => {
         <Typography gutterBottom variant="h5" component="div">
           Prize is 124 ETH
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {item}
-        </Typography>
+        <Link href={`/stats/${item}`}>
+          <Typography variant="body2" color="text.secondary">
+            {item}
+          </Typography>
+        </Link>
       </CardContent>
       <CardActions>
         <Button size="small">Play</Button>
