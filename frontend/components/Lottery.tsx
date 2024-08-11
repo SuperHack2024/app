@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import {
   Card,
   Box,
@@ -6,14 +6,14 @@ import {
   Button,
   Typography,
   LinearProgress,
-} from "@mui/material";
-import Link from "next/link";
-import { useReadContract, useWriteContract } from "wagmi";
-import { abi } from "../abis/abiLottery.ts";
-import LotteryAbi from "../abis/Lottery.json";
-import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
-import Image from "next/image";
-import { bigIntToEth } from "@/components/helpers/ops";
+} from '@mui/material';
+import Link from 'next/link';
+import { useReadContract, useWriteContract } from 'wagmi';
+import { abi } from '../abis/abiLottery.ts';
+import LotteryAbi from '../abis/Lottery.json';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import Image from 'next/image';
+import { bigIntToEth } from '@/components/helpers/ops';
 interface LotteryProps {
   item: any;
   key: number;
@@ -28,7 +28,7 @@ const Lottery: React.FC<LotteryProps> = ({ item, key }) => {
   } = useReadContract({
     abi: LotteryAbi,
     address: item as `0x${string}`,
-    functionName: "lotteryType",
+    functionName: 'lotteryType',
   });
 
   const {
@@ -38,7 +38,7 @@ const Lottery: React.FC<LotteryProps> = ({ item, key }) => {
   } = useReadContract({
     abi: LotteryAbi,
     address: item as `0x${string}`,
-    functionName: "ticketPrice",
+    functionName: 'ticketPrice',
   });
 
   const {
@@ -48,10 +48,10 @@ const Lottery: React.FC<LotteryProps> = ({ item, key }) => {
   } = useReadContract({
     abi: LotteryAbi,
     address: item as `0x${string}`,
-    functionName: "winnerAnnounced",
+    functionName: 'winnerAnnounced',
   });
 
-  const noWinner = "0x0000000000000000000000000000000000000000";
+  const noWinner = '0x0000000000000000000000000000000000000000';
 
   if (isLoading || isLoadingWinner || loadingticketPrice) {
     return (
@@ -64,16 +64,16 @@ const Lottery: React.FC<LotteryProps> = ({ item, key }) => {
     return (
       <Card
         sx={{
-          display: "flex",
-          width: "700px",
-          background: "rgb(200, 230, 255)",
-          borderRadius: "20px",
-          boxShadow: "10px 10px 8px rgba(0, 0, 0, 0.2)",
+          display: 'flex',
+          width: '780px',
+          boxShadow: 'none',
+          background: 'rgb(200, 230, 255)',
+          borderRadius: '20px',
         }}
       >
         <Box>
           <Image
-            src={lotteryType === 0 ? "/giveaway.png" : "/lottery.png"}
+            src={lotteryType === 0 ? '/giveaway.png' : '/lottery.png'}
             width={200}
             height={200}
             alt="Lottery Type Image"
@@ -81,17 +81,19 @@ const Lottery: React.FC<LotteryProps> = ({ item, key }) => {
         </Box>
         <CardContent>
           <Typography gutterBottom variant="h6" component="div">
-            {lotteryType === 0 ? "Free Giveaway" : "Paid Lottery Ticket"}
+            {lotteryType === 0
+              ? 'FREE Ethereum Giveaway'
+              : 'Ethereum Lottery Ticket'}
           </Typography>
-          <Link href={`/stats/${item}`}>
+          <Link href={`/games/${item}`}>
             <Typography variant="body2" color="text.secondary">
               {item}
             </Typography>
           </Link>
-          <CardContent sx={{ margin: "2px" }}>
+          <CardContent sx={{ margin: '2px' }}>
             <Typography variant="inherit">
               {lotteryWinner === noWinner ? (
-                "Lottery is active."
+                'Lottery is active.'
               ) : (
                 <span>
                   Winner:
@@ -101,8 +103,8 @@ const Lottery: React.FC<LotteryProps> = ({ item, key }) => {
               )}
               <br />
               <br />
-              Ticket Price:{" "}
-              {ticketPrice ? bigIntToEth(ticketPrice as bigint) : 0} Ξ
+              Ticket Price:{' '}
+              {ticketPrice ? bigIntToEth(ticketPrice as bigint) : 0} ETH
             </Typography>
           </CardContent>
           <Button
@@ -115,12 +117,12 @@ const Lottery: React.FC<LotteryProps> = ({ item, key }) => {
               writeContract({
                 abi,
                 address: item as `0x${string}`,
-                functionName: "joinLotteryTicket",
+                functionName: 'joinLotteryTicket',
                 value: ticketPrice as bigint,
               });
             }}
           >
-            {lotteryType === 0 ? "Participate" : "Purchase Ticket"}
+            {lotteryType === 0 ? 'Join' : 'Buy Ticket'}
           </Button>
         </CardContent>
       </Card>

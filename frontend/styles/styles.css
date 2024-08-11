@@ -1,11 +1,23 @@
 body {
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    'Noto Sans',
+    sans-serif,
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    'Noto Color Emoji';
   padding: 0 1rem 1rem 1rem;
-  max-width: 680px;
+  /* max-width: 680px; */
   margin: 0 auto;
-  background: #fff;
+  background: #ffffff;
   color: #333;
 }
 
@@ -29,4 +41,11 @@ iframe {
   width: 100%;
   border-radius: 0.5rem;
   filter: invert(1);
+}
+
+:root {
+  --w3m-button-background-color: white; /* Background color */
+  --w3m-button-border-radius: 20px; /* Rounded corners */
+  --w3m-button-color: #0052ff; /* Text color */
+  --w3m-button-hover-background-color: #0040cc; /* Hover background color */
 }
