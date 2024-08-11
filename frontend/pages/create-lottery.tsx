@@ -7,23 +7,35 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import { Box, Typography, TextField, Button } from "@mui/material";
-import { useReadContract, useWriteContract } from "wagmi";
+import { useWriteContract } from "wagmi";
+import { abi } from "../abis/abiLotteryFactory.ts";
 import LotteryABI from "../abis/Lottery.json";
 
 const LotteryFactory = "0xA955C832Fc6c74c1143356F115e8CBEAAe514fB2";
 
 export default function CreateLottery() {
-  // const { writeContract } = useWriteContract();
+  const { writeContract } = useWriteContract();
 
-  // const { data: owner, error } = useReadContract({
-  //   abi: LotteryABI,
-  //   address: LotteryAddress,
-  //   functionName: "owner",
-  // });
+  const lotteryFactoryAddress = process.env
+    .LOTTERYFACTORY_CONTRACT as `0x${string}`;
+
+  const [prizeAmount, setPrizeAmount] = useState("");
+  const [ticketPrice, setTicketPrice] = useState("");
+
+  const handlePrizeAmountChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setPrizeAmount(event.target.value);
+  };
+
+  const handleTicketPriceChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setTicketPrice(event.target.value);
+  };
 
   const [selectedValue, setSelectedValue] = useState("giveaway");
 
-  // Handler function for when the radio button value changes
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(event.target.value);
     console.log("selected value changed", selectedValue);
@@ -34,15 +46,9 @@ export default function CreateLottery() {
       <Box
         sx={{
           display: "flex",
-          marginLeft: "50px",
-          marginRight: "50px",
-          alignItems: "center",
           marginTop: "15vh",
           height: "60vh",
-          backgroundColor: "white",
-          color: "black",
           flexDirection: "column",
-          gap: 5,
         }}
       >
         <Box
@@ -50,7 +56,6 @@ export default function CreateLottery() {
             display: "flex",
             gap: 5,
             width: "100%",
-
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "column",
@@ -58,7 +63,8 @@ export default function CreateLottery() {
         >
           <FormControl>
             <FormLabel id="demo-radio-buttons-group-label">
-              Lottery Type
+              <b>Select the type of lottery you want to create</b>
+              <br /> <br />
             </FormLabel>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
@@ -71,20 +77,63 @@ export default function CreateLottery() {
                 control={<Radio />}
                 label="Giveaway"
               />
+              <TextField
+                id="prize-amout"
+                label="Prize Amount in wei"
+                variant="filled"
+                value={prizeAmount}
+                onChange={handlePrizeAmountChange}
+                disabled={selectedValue === "giveaway" ? false : true}
+              />
+              <br />
+              <br />
+              <br />
               <FormControlLabel
                 value="Lottery"
                 control={<Radio />}
                 label="Lottery Ticket"
               />
+              <TextField
+                id="ticket-price"
+                label="Ticket Price in Wei"
+                variant="filled"
+                value={ticketPrice}
+                onChange={handleTicketPriceChange}
+                disabled={selectedValue === "giveaway" ? true : false}
+              />
             </RadioGroup>
           </FormControl>
-          <TextField
-            id="filled-basic"
-            label="Ticket Price in Wei"
-            variant="filled"
-            disabled={selectedValue === "giveaway" ? true : false}
-          />
-          <Button onClick={() => {}} variant="contained">
+          <br />
+          <br />
+          <br />
+          <Button
+            variant="contained"
+            onClick={() => {
+              if (selectedValue === "giveaway") {
+                console.log("Creating GiveAway");
+
+                console.log("BigInt Prize", BigInt(prizeAmount));
+                writeContract({
+                  abi,
+                  address: lotteryFactoryAddress,
+                  functionName: "createLottery",
+                  args: [0, BigInt("1000000000000000")],
+                  value: BigInt(prizeAmount),
+                });
+              }
+              if (selectedValue != "giveaway") {
+                console.log("Creating Lottery");
+
+                console.log("BigInt ticketPrice", BigInt(ticketPrice));
+                writeContract({
+                  abi,
+                  address: lotteryFactoryAddress,
+                  functionName: "createLottery",
+                  args: [1, BigInt(ticketPrice)],
+                });
+              }
+            }}
+          >
             Create Lottery
           </Button>
         </Box>

@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 export const fetcher = (url: string) =>
   fetch(url, {
     method: "GET",
@@ -37,17 +39,14 @@ export function formatDateTime(dateString: string): string {
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 export function bigIntToEth(bigIntValue: bigint) {
-  if (
-    bigIntValue > BigInt(Number.MAX_SAFE_INTEGER) ||
-    bigIntValue < BigInt(Number.MIN_SAFE_INTEGER)
-  ) {
-    throw new Error(
-      "BigInt value is too large or too small to be safely converted to a number."
-    );
-  }
-
   const numberValue = Number(bigIntValue);
 
   const ethValue = numberValue / 1e18;
   return ethValue;
+}
+
+export function generateRandomBytes32() {
+  const uuid = uuidv4();
+  const bytes32 = `0x${uuid.replace(/-/g, "")}`.padEnd(66, "0");
+  return bytes32;
 }

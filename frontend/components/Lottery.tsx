@@ -91,7 +91,7 @@ const Lottery: React.FC<LotteryProps> = ({ item, key }) => {
           <CardContent sx={{ margin: "2px" }}>
             <Typography variant="inherit">
               {lotteryWinner === noWinner ? (
-                "Lottery is still active."
+                "Lottery is active."
               ) : (
                 <span>
                   Winner:
@@ -120,7 +120,7 @@ const Lottery: React.FC<LotteryProps> = ({ item, key }) => {
               });
             }}
           >
-            Play Lottery
+            {lotteryType === 0 ? "Participate" : "Purchase Ticket"}
           </Button>
         </CardContent>
       </Card>
