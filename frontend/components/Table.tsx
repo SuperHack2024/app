@@ -13,6 +13,7 @@ import ErrorIcon from "@mui/icons-material/Error";
 import TableHeadMenu from "./TableHeadMenu";
 import { ethers } from "ethers";
 import { shortenString, formatDateTime } from "./helpers/ops";
+import Link from "next/link";
 
 export default function DenseTable({ items }: { items: any[] }) {
   const [page, setPage] = React.useState(0);
@@ -54,7 +55,14 @@ export default function DenseTable({ items }: { items: any[] }) {
                   >
                     <TableCell align="center">{row.block}</TableCell>
                     <TableCell align="center">
-                      {shortenString(row.from.hash)}
+                      <Link
+                        href={`https://base-sepolia.blockscout.com/address/${row.from.hash}`}
+                        passHref
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {shortenString(row.from.hash)}
+                      </Link>
                     </TableCell>
                     <TableCell align="center">
                       {formatDateTime(row.timestamp)}
@@ -63,7 +71,14 @@ export default function DenseTable({ items }: { items: any[] }) {
                       {ethers.formatEther(row.value)}
                     </TableCell>
                     <TableCell align="center">
-                      {shortenString(row.transaction_hash)}
+                      <Link
+                        href={`https://base-sepolia.blockscout.com/tx/${row.transaction_hash}`}
+                        passHref
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {shortenString(row.transaction_hash)}
+                      </Link>
                     </TableCell>
                     <TableCell align="center">{row.type}</TableCell>
                     <TableCell align="center">

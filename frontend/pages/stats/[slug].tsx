@@ -1,11 +1,13 @@
 import useSWR from "swr";
 import { Box, Typography, Button } from "@mui/material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import React from "react";
 import { useRouter } from "next/router";
 import { useReadContract } from "wagmi";
 import LotteryAbi from "../../abis/Lottery.json";
 import { fetcher } from "@/components/helpers/ops";
 import Table from "@/components/Table";
+import Link from "next/link";
 interface Item {
   block: string;
   value: string;
@@ -48,52 +50,66 @@ export default function LotteryDetail() {
     const items: Item[] = data.items;
 
     return (
-      <>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignContent: "center",
+          alignItems: "center",
+          color: "black",
+
+          marginTop: "12vh",
+          flexDirection: "row",
+          gap: 50,
+        }}
+      >
         <Box
           sx={{
             display: "flex",
-            justifyContent: "center",
-            alignContent: "center",
-            alignItems: "center",
-            color: "black",
-            width: "100%",
-            marginTop: "12vh",
-            flexDirection: "row",
-            gap: 15,
+            width: "40%",
+            flexDirection: "column",
           }}
         >
-          <Box>
-            <Box
-              sx={{
-                display: "flex",
-                width: "50%",
-                flexDirection: "column",
-              }}
-            >
-              <Typography variant="h6" gutterBottom>
-                Current Players
-              </Typography>
-              {participants?.map((item: string, index: any) => (
-                <div key={index}>
-                  <>{item} </>
-                </div>
-              ))}
-              <br />
-              Status of the Lottery:{" "}
-              {(lotteryStatus as boolean) ? "Active" : "Closed"}
-              {/* TODO: Active only if is the owner and if it is active */}
-              <Button
-                sx={{ mt: "5vh" }}
-                variant="contained"
-                disabled={!lotteryStatus as boolean}
-              >
-                Select Winner
-              </Button>
-            </Box>
-          </Box>{" "}
+          <Typography variant="h6" gutterBottom>
+            {(lotteryStatus as boolean) ? "Who is participating ? " : "Players"}
+          </Typography>
+          {participants?.map((item: string, index: any) => (
+            <div key={index}>
+              <>
+                <AccountCircleIcon />
+                <Link
+                  href={`https://base-sepolia.blockscout.com/address/${item}`}
+                  passHref
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {item}
+                </Link>
+              </>
+            </div>
+          ))}
+          <br />
+          Status of the Lottery:{" "}
+          {(lotteryStatus as boolean) ? "Active" : "Closed"}
+          {/* TODO: Active only if is the owner and if it is active */}
+          <Button
+            sx={{ mt: "5vh" }}
+            variant="contained"
+            disabled={!lotteryStatus as boolean}
+          >
+            Select Winner
+          </Button>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            width: "100%",
+            flexDirection: "column",
+          }}
+        >
           <Table items={items} />
         </Box>
-      </>
+      </Box>
     );
   }
 }

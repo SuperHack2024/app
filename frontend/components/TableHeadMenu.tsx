@@ -5,7 +5,7 @@ const TableHeadMenu = () => {
     <TableHead>
       <TableRow
         sx={{
-          background: "black",
+          background: "#1A76D2",
         }}
       >
         <TableCell
@@ -46,7 +46,7 @@ const TableHeadMenu = () => {
           }}
           align="center"
         >
-          Value
+          Value Ξ
         </TableCell>
         <TableCell
           sx={{
