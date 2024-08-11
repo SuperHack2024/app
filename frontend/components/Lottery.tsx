@@ -87,12 +87,12 @@ const Lottery: React.FC<LotteryProps> = ({ item, key }) => {
           </Link>
           <CardContent sx={{ margin: "2px" }}>
             <Typography variant="inherit">
-              Winner:
-              <br />
               {lotteryWinner === noWinner ? (
-                "Lottery is still running"
+                "Lottery is still active."
               ) : (
                 <span>
+                  Winner:
+                  <br />
                   {lotteryWinner as string} <EmojiEventsIcon />
                 </span>
               )}

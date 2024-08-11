@@ -66,7 +66,7 @@ export default function LotteryDetail() {
         <Box
           sx={{
             display: "flex",
-            width: "40%",
+            width: "30%",
             flexDirection: "column",
           }}
         >
@@ -103,7 +103,7 @@ export default function LotteryDetail() {
         <Box
           sx={{
             display: "flex",
-            width: "100%",
+            width: "100vw",
             flexDirection: "column",
           }}
         >
