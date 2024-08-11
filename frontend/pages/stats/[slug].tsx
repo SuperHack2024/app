@@ -7,6 +7,9 @@ import { useRouter } from "next/router";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../api/auth/[...nextauth]";
 import type { GetServerSidePropsContext } from "next";
+import { shortenString, bigIntToEth } from "../../components/helpers/ops";
+import RedeemIcon from "@mui/icons-material/Redeem";
+import ReceiptIcon from "@mui/icons-material/Receipt";
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getServerSession(context.req, context.res, authOptions);
 
@@ -40,6 +43,28 @@ export default function LotteryDetail() {
     abi: LotteryAbi,
     address: id as `0x${string}`,
     functionName: "getParticipants",
+  });
+  const {
+    data: lotteryWinner,
+    isLoading: isLoadingWinner,
+    error: errorWinner,
+  } = useReadContract({
+    abi: LotteryAbi,
+    address: id as `0x${string}`,
+    functionName: "winnerAnnounced",
+  });
+
+  const noWinner = "0x0000000000000000000000000000000000000000";
+
+  const {
+    data: balance,
+    isLoading: isLoadingBalance,
+    error: errorBalance,
+  } = useReadContract({
+    abi: LotteryAbi,
+    address: id as `0x${string}`,
+    functionName: "getBalance",
+    args: [id as `0x${string}`],
   });
 
   const participants: [] = partipantsContract as [];
@@ -86,11 +111,47 @@ export default function LotteryDetail() {
             flexDirection: "column",
           }}
         >
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="body2" gutterBottom>
+            <ReceiptIcon />
+            Lottery Contract:
+            <br />
+            <Link
+              href={`https://base-sepolia.blockscout.com/address/${id}`}
+              passHref
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {shortenString(id as string)}
+            </Link>
+          </Typography>{" "}
+          <br />
+          {lotteryWinner === noWinner ? (
+            <Typography variant="body2" gutterBottom>
+              Prize:
+              <br />
+              {bigIntToEth(balance as bigint)} ETH <RedeemIcon />
+            </Typography>
+          ) : (
+            <>
+              Winner:
+              <br />
+              <Link
+                href={`https://base-sepolia.blockscout.com/address/${id}`}
+                passHref
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {shortenString(lotteryWinner as string)}
+              </Link>
+            </>
+          )}
+          <br />
+          <br />
+          <Typography variant="body2" gutterBottom>
             {(lotteryStatus as boolean) ? "Who is participating ? " : "Players"}
           </Typography>
           {participants?.map((item: string, index: any) => (
-            <div key={index}>
+            <Typography variant="body2" gutterBottom key={index}>
               <>
                 <AccountCircleIcon />
                 <Link
@@ -102,7 +163,7 @@ export default function LotteryDetail() {
                   {item}
                 </Link>
               </>
-            </div>
+            </Typography>
           ))}
           <br />
           Status of the Lottery:{" "}
