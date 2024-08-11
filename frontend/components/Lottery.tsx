@@ -8,17 +8,19 @@ import {
   LinearProgress,
 } from "@mui/material";
 import Link from "next/link";
-import { useReadContract } from "wagmi";
+import { useReadContract, useWriteContract } from "wagmi";
+import { abi } from "../abis/abiLottery.ts";
 import LotteryAbi from "../abis/Lottery.json";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import Image from "next/image";
 import { bigIntToEth } from "@/components/helpers/ops";
-
 interface LotteryProps {
   item: any;
   key: number;
 }
 const Lottery: React.FC<LotteryProps> = ({ item, key }) => {
+  const { writeContract } = useWriteContract();
+
   const {
     data: lotteryType,
     isLoading,
@@ -103,8 +105,22 @@ const Lottery: React.FC<LotteryProps> = ({ item, key }) => {
               {ticketPrice ? bigIntToEth(ticketPrice as bigint) : 0} Ξ
             </Typography>
           </CardContent>
-          <Button variant="contained" disabled={lotteryWinner !== noWinner}>
-            Play
+          <Button
+            variant="contained"
+            disabled={lotteryWinner !== noWinner}
+            onClick={() => {
+              // console.log("Executing Write Contract with ", item);
+              // console.log("Executing Write Contract with value ", ticketPrice);
+
+              writeContract({
+                abi,
+                address: item as `0x${string}`,
+                functionName: "joinLotteryTicket",
+                value: ticketPrice as bigint,
+              });
+            }}
+          >
+            Play Lottery
           </Button>
         </CardContent>
       </Card>

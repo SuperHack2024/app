@@ -1,5 +1,6 @@
 import { Box, LinearProgress } from "@mui/material";
 import { useReadContract } from "wagmi";
+
 import LotteryABI from "../abis/LotteryFactory.json";
 import Lottery from "@/components/Lottery";
 import { useSession } from "next-auth/react";
