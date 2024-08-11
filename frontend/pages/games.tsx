@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import TopBar from '@/components/TopBar';
 import Footer from '@/components/Footer';
 
-export default function Stats() {
+export default function Games() {
   const { data: session, status } = useSession();
   const loading = status === 'loading';
   const router = useRouter();

@@ -1,34 +1,10 @@
-import Footer from '@/components/Footer';
-import { useState } from 'react';
 import { Box, Divider, Grid, Typography } from '@mui/material';
-import { useWriteContract } from 'wagmi';
+
 import TopBar from '@/components/TopBar.tsx';
 import Auth from '@/components/Auth.tsx';
+import Footer from '@/components/Footer';
 
-export default function CreateLottery() {
-  const { writeContract } = useWriteContract();
-  const [prizeAmount, setPrizeAmount] = useState('');
-  const [ticketPrice, setTicketPrice] = useState('');
-
-  const handlePrizeAmountChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setPrizeAmount(event.target.value);
-  };
-
-  const handleTicketPriceChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setTicketPrice(event.target.value);
-  };
-
-  const [selectedValue, setSelectedValue] = useState('giveaway');
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedValue(event.target.value);
-    console.log('selected value changed', selectedValue);
-  };
-
+export default function HowToPlay() {
   return (
     <Box
       sx={{

@@ -1,9 +1,9 @@
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from './api/auth/[...nextauth]';
 import type { GetServerSidePropsContext } from 'next';
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import Auth from '../components/Auth';
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
 import TopBar from '@/components/TopBar';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
@@ -98,34 +98,6 @@ export default function LandingPage() {
                 >
                   You still have an active session with Worldcoin.
                 </Typography>
-
-                <Button
-                  sx={{
-                    boxShadow: 'none',
-                    width: '10rem',
-                    height: '4rem',
-                    textTransform: 'none',
-                    borderRadius: '30px',
-                    backgroundColor: '#1976D2',
-                    '&:hover': {
-                      backgroundColor: '#0052FF',
-                    },
-                  }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    signOut({ callbackUrl: 'http://localhost:3000/' });
-                  }}
-                  variant={'contained'}
-                >
-                  <Typography
-                    component="span"
-                    sx={{
-                      fontSize: '1.5rem',
-                    }}
-                  >
-                    Logout
-                  </Typography>
-                </Button>
               </Box>
             )}
           </Box>

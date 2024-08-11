@@ -1,70 +1,111 @@
-import Footer from '@/components/Footer';
-
-import { useState } from 'react';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
-import { Box, Typography, TextField, Button, Divider } from '@mui/material';
-import { useWriteContract } from 'wagmi';
-import { abi } from '../abis/abiLotteryFactory.ts';
-import LotteryABI from '../abis/Lottery.json';
+import { Box, Typography, Divider, Grid } from '@mui/material';
 import TopBar from '@/components/TopBar.tsx';
+import Image from 'next/image';
 
-const LotteryFactory = '0xA955C832Fc6c74c1143356F115e8CBEAAe514fB2';
-
-export default function CreateLottery() {
-  const { writeContract } = useWriteContract();
-
-  const lotteryFactoryAddress = process.env
-    .LOTTERYFACTORY_CONTRACT as `0x${string}`;
-
-  const [prizeAmount, setPrizeAmount] = useState('');
-  const [ticketPrice, setTicketPrice] = useState('');
-
-  const handlePrizeAmountChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setPrizeAmount(event.target.value);
-  };
-
-  const handleTicketPriceChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setTicketPrice(event.target.value);
-  };
-
-  const [selectedValue, setSelectedValue] = useState('giveaway');
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedValue(event.target.value);
-    console.log('selected value changed', selectedValue);
-  };
-
+export default function Partners() {
   return (
     <>
       <TopBar />
       <Divider />
-      <Box
+      <Typography
+        variant="h4"
         sx={{
-          display: 'flex',
-          marginTop: '15vh',
-          height: '60vh',
-          flexDirection: 'column',
+          paddingX: '4rem',
+          paddingY: '3rem',
         }}
       >
-        <Typography
-          variant="h3"
+        Glad you got here, we are looking for sponsors and partners.
+      </Typography>
+      <Typography
+        variant="h4"
+        sx={{
+          paddingX: '4rem',
+          paddingY: '1rem',
+        }}
+      >
+        CRYPTO LOTTERY™ is a Blockchain Lottery game and Ethereum rewards
+        service providers for companies and content creators of the Web3 digital
+        economy.
+      </Typography>
+      <Typography
+        variant="h4"
+        sx={{
+          paddingX: '4rem',
+          paddingY: '1rem',
+        }}
+      >
+        Powered by:
+      </Typography>
+
+      <Grid
+        container
+        spacing={2}
+        sx={{
+          paddingX: '10rem',
+          paddingY: '1rem',
+        }}
+      >
+        <Grid
+          xs={6}
           sx={{
-            paddingX: '4rem',
+            paddingX: '1rem',
             paddingY: '1rem',
           }}
         >
-          Glad you got here, we are looking for sponsors and partners.
-        </Typography>
-      </Box>
-      <Footer />
+          <Image
+            src="/base.svg"
+            alt="BASE"
+            // layout="responsive"
+            width={500}
+            height={300}
+          />
+        </Grid>
+        <Grid
+          xs={6}
+          sx={{
+            paddingX: '1rem',
+            paddingY: '1rem',
+          }}
+        >
+          <Image
+            src="/ethglobal.svg"
+            alt="Eth Global"
+            // layout="responsive"
+            width={300}
+            height={300}
+          />
+        </Grid>
+        <Grid
+          xs={6}
+          sx={{
+            paddingX: '1rem',
+            paddingY: '2rem',
+          }}
+        >
+          <Image
+            src="/pyth.svg"
+            alt="Pyth Network"
+            // layout="responsive"
+            width={300}
+            height={300}
+          />
+        </Grid>
+        <Grid
+          xs={6}
+          sx={{
+            paddingX: '1rem',
+            paddingY: '2rem',
+          }}
+        >
+          <Image
+            src="/worldcoin.svg"
+            alt="Worldcoin"
+            // layout="responsive"
+            width={300}
+            height={300}
+          />
+        </Grid>
+      </Grid>
     </>
   );
 }

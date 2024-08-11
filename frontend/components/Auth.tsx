@@ -61,7 +61,7 @@ export default function Auth() {
 
   if (session) {
     return (
-      <Box sx={{ color: 'white' }}>
+      <Box sx={{ color: 'white', paddingLeft: '8rem' }}>
         <Button
           sx={{
             boxShadow: 'none',
@@ -79,7 +79,14 @@ export default function Auth() {
           }}
           variant={'contained'}
         >
-          Sign out
+          <Typography
+            component="span"
+            sx={{
+              fontSize: '1.5rem',
+            }}
+          >
+            Logout
+          </Typography>
         </Button>
       </Box>
     );

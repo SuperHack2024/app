@@ -15,11 +15,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const pages = [
-  { text: 'Games', url: 'games' },
-  { text: 'How to play', url: 'how-to-play' },
-  { text: 'Create Lottery', url: 'create-lottery' },
-  { text: 'Partners', url: 'partners' },
-  { text: 'About', url: 'about' },
+  { text: 'Games', url: '../games' },
+  { text: 'How to play', url: '../how-to-play' },
+  { text: 'Create Lottery', url: '../create-lottery' },
+  { text: 'Partners', url: '../partners' },
+  { text: 'About', url: '../about' },
 ];
 
 function ResponsiveAppBar() {
