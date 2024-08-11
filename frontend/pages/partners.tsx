@@ -1,4 +1,4 @@
-import { Box, Typography, Divider, Grid } from '@mui/material';
+import { Typography, Divider, Grid } from '@mui/material';
 import TopBar from '@/components/TopBar.tsx';
 import Image from 'next/image';
 
