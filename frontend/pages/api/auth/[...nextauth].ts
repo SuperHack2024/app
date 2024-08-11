@@ -26,20 +26,16 @@ export const authOptions: NextAuthOptions = {
     },
   ],
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-      console.log(
-        "Callback signIn",
-        user,
-        account,
-        profile,
-        email,
-        credentials
-      );
-      return true;
-    },
     async jwt({ token }) {
       token.userRole = "admin";
       return token;
+    },
+    async redirect({ url, baseUrl }) {
+      // Allows relative callback URLs
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      // Allows callback URLs on the same origin
+      else if (new URL(url).origin === baseUrl) return url;
+      return baseUrl;
     },
   },
   debug: false,

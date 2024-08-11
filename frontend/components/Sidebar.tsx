@@ -15,6 +15,8 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Link from "next/link";
+import { signIn, signOut, useSession } from "next-auth/react";
+
 const drawerWidth = 240;
 const menuItems = [
   { name: "Create Lottery", icon: "" },
@@ -169,10 +171,14 @@ export default function PersistentDrawerLeft() {
           }}
         >
           <Link
-            href={"/"}
+            href={"/api/auth/signout"}
             style={{
               textDecoration: "none",
               color: "white",
+            }}
+            onClick={(e) => {
+              e.preventDefault();
+              signOut();
             }}
           >
             <ListItem style={{ marginLeft: "2px" }}>

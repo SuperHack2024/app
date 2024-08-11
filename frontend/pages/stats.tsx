@@ -2,8 +2,25 @@ import { Box, LinearProgress } from "@mui/material";
 import { useReadContract } from "wagmi";
 import LotteryABI from "../abis/LotteryFactory.json";
 import Lottery from "@/components/Lottery";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "./api/auth/[...nextauth]";
+import type { GetServerSidePropsContext } from "next";
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getServerSession(context.req, context.res, authOptions);
+
+  return {
+    props: {
+      session: JSON.stringify(session),
+    },
+  };
+}
 
 export default function Stats() {
+  const { data: session, status } = useSession();
+  const loading = status === "loading";
+  const router = useRouter();
   const lotteryFactoryAddress = process.env.LOTTERYFACTORY_CONTRACT;
 
   const {
@@ -16,7 +33,11 @@ export default function Stats() {
     functionName: "getLotteries",
   });
 
-  if (isLoading) {
+  if (!session) {
+    router.push("/");
+  }
+
+  if (isLoading || loading) {
     return (
       <>
         <LinearProgress />
@@ -32,12 +53,17 @@ export default function Stats() {
           sx={{
             display: "flex",
             marginTop: "10vh",
+            flexDirection: "column",
           }}
         >
+          <>You have been authenticated with WorldCoin</>
+
+          <strong> {session?.user?.name}</strong>
           <Box
             sx={{
               display: "flex",
               gap: 5,
+              mt: "5vh",
               justifyContent: "center",
               alignItems: "center",
               flexDirection: "  column",
