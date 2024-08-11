@@ -1,5 +1,6 @@
 import { SessionProvider } from "next-auth/react";
 import "../styles/styles.css";
+import { useRouter } from "next/router";
 
 import type { AppProps } from "next/app";
 import type { Session } from "next-auth";
@@ -8,8 +9,10 @@ import { createWeb3Modal } from "@web3modal/wagmi/react";
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
 
 import { WagmiProvider } from "wagmi";
-import { arbitrum, baseSepolia, mainnet } from "wagmi/chains";
+import { baseSepolia } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import PersistentDrawerLeft from "@/components/Sidebar";
+import Footer from "@/components/Footer";
 
 // 0. Setup queryClient
 const queryClient = new QueryClient();
@@ -37,18 +40,22 @@ createWeb3Modal({
   metadata,
   wagmiConfig: config,
   projectId,
-  enableAnalytics: true, // Optional - defaults to your Cloud configuration
+  enableAnalytics: true,
 });
 
 export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps<{ session: Session }>) {
+  const router = useRouter();
+  const isRootPath = router.pathname === "/";
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <SessionProvider session={session}>
+          {!isRootPath && <PersistentDrawerLeft />}
           <Component {...pageProps} />
+          {!isRootPath && <Footer />}
         </SessionProvider>
       </QueryClientProvider>
     </WagmiProvider>

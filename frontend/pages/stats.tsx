@@ -1,5 +1,3 @@
-import PersistentDrawerLeft from "@/components/Sidebar";
-import Footer from "@/components/Footer";
 import { Box, LinearProgress } from "@mui/material";
 import { useReadContract } from "wagmi";
 import LotteryABI from "../abis/LotteryFactory.json";
@@ -21,7 +19,6 @@ export default function Stats() {
   if (isLoading) {
     return (
       <>
-        <PersistentDrawerLeft />
         <LinearProgress />
       </>
     );
@@ -31,24 +28,16 @@ export default function Stats() {
   if (lotteries) {
     return (
       <>
-        <PersistentDrawerLeft />
         <Box
           sx={{
             display: "flex",
-            marginLeft: "50px",
-            marginRight: "50px",
-            marginTop: "20vh",
-            alignItems: "center",
-            backgroundColor: "white",
-            color: "black",
-            flexDirection: "column",
+            marginTop: "10vh",
           }}
         >
           <Box
             sx={{
               display: "flex",
               gap: 5,
-              width: "100%",
               justifyContent: "center",
               alignItems: "center",
               flexDirection: "  column",
@@ -66,14 +55,12 @@ export default function Stats() {
   if (error)
     return (
       <>
-        <PersistentDrawerLeft />
         <Box
           sx={{
             display: "flex",
             marginLeft: "50px",
             marginRight: "50px",
             alignItems: "center",
-
             backgroundColor: "white",
             color: "black",
             flexDirection: "column",
@@ -94,7 +81,6 @@ export default function Stats() {
             Something ocurred.
           </Box>
         </Box>
-        <Footer />
       </>
     );
 }

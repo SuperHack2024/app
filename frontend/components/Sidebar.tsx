@@ -13,12 +13,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import Link from "next/link";
 const drawerWidth = 240;
 const menuItems = [
@@ -70,7 +65,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
+
   ...theme.mixins.toolbar,
   justifyContent: "flex-end",
 }));
@@ -102,7 +97,7 @@ export default function PersistentDrawerLeft() {
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar>
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -113,18 +108,21 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Quachi Web3
+            {open ? "" : "Quachi Web3"}
           </Typography>
+          <w3m-button />
         </Toolbar>
-        <w3m-button />
       </AppBar>
       <Drawer
         sx={{
           width: drawerWidth,
+
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             width: drawerWidth,
             boxSizing: "border-box",
+            backgroundColor: "#1A76D2",
+            fontColor: "white",
           },
         }}
         variant="persistent"
@@ -148,38 +146,48 @@ export default function PersistentDrawerLeft() {
               key={index}
               passHref
               onClick={handleDrawerClose}
+              style={{
+                textDecoration: "none",
+                color: "white",
+              }}
             >
-              <ListItem key={index} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {item.name === "Create Lottery" ? (
-                      <AddCircleOutlineIcon sx={{ color: "white" }} />
-                    ) : (
-                      <></>
-                    )}
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={
-                      item.name.charAt(0).toUpperCase() + item.name.slice(1)
-                    }
-                  />
-                </ListItemButton>
+              <ListItem key={index} style={{ marginLeft: "2px" }}>
+                <ListItemText
+                  primary={
+                    item.name.charAt(0).toUpperCase() + item.name.slice(1)
+                  }
+                />
               </ListItem>
             </Link>
           ))}
         </List>
         <Divider />
-        <List>
-          {["Logout"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
+        <List
+          style={{
+            textDecoration: "none",
+            color: "white",
+          }}
+        >
+          <Link
+            href={"/"}
+            style={{
+              textDecoration: "none",
+              color: "white",
+            }}
+          >
+            <ListItem style={{ marginLeft: "2px" }}>
+              <ListItemText primary={"Logout"} />
             </ListItem>
-          ))}
+          </Link>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              height: "100%",
+            }}
+
+            // TODO: Insert QuachiWeb3 Logo
+          ></Box>
         </List>
       </Drawer>
     </Box>
