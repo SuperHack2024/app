@@ -12,6 +12,7 @@ import { useReadContract } from "wagmi";
 import LotteryAbi from "../abis/Lottery.json";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import Image from "next/image";
+import { bigIntToEth } from "@/components/helpers/ops";
 
 interface LotteryProps {
   item: any;
@@ -98,7 +99,8 @@ const Lottery: React.FC<LotteryProps> = ({ item, key }) => {
               )}
               <br />
               <br />
-              {/* Ticket Price: {ethAmount ? ethAmount : 0} Ξ */}
+              Ticket Price:{" "}
+              {ticketPrice ? bigIntToEth(ticketPrice as bigint) : 0} Ξ
             </Typography>
           </CardContent>
           <Button variant="contained" disabled={lotteryWinner !== noWinner}>

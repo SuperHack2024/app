@@ -51,12 +51,6 @@ export default function Auth() {
   if (session) {
     return (
       <Box sx={{ color: "white" }}>
-        <span>
-          <small>Signed in as</small>
-          <br />
-          <strong>{session?.user?.name}</strong>
-        </span>
-
         <Button
           onClick={() => {
             signOut({ callbackUrl: "http://localhost:3000/" });
