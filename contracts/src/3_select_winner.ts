@@ -1,13 +1,9 @@
 import Web3 from "web3";
-import yargs from "yargs";
-import { hideBin } from "yargs/helpers";
 import HDWalletProvider from "@truffle/hdwallet-provider";
 import LotteryNFTAbi from "./LotteryNFTAbi.json";
 
 async function main() {
-  // const argv = await parser.argv;
-
-  const LotteryAddress = "0x3504Dc10a962b8Df1e570a8d61F6E3651051a455";
+  const LotteryAddress = "0x69e6851B0a0C5D94122AbdFDD4D190a4F9508d97"; //Smart contract address for a specific lottery
   const rpc = "https://sepolia.base.org";
 
   const privateKey = "YOUR_PK"; //account 7
@@ -81,7 +77,6 @@ async function main() {
       });
 
       if (event) {
-        console.log("Event is :::::>>>>>>", event);
         // Convert to JSON string
         const replacer = (key: any, value: bigint) => {
           if (typeof value === "bigint") {

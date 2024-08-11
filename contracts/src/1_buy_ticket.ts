@@ -1,34 +1,9 @@
 import Web3 from "web3";
-import yargs from "yargs";
-import { hideBin } from "yargs/helpers";
 import HDWalletProvider from "@truffle/hdwallet-provider";
 import Lottery from "./LotteryNFTAbi.json";
 
-const parser = yargs(hideBin(process.argv))
-  .option("private-key", {
-    description: "Private key (as a hexadecimal string) of the sender",
-    type: "string",
-    required: true,
-  })
-  .option("address", {
-    description: "The address of the Lottery NFT contract",
-    type: "string",
-    required: true,
-  })
-  .option("rpc-url", {
-    description:
-      "The URL of an ETH RPC service for reading/writing to the blockchain",
-    type: "string",
-    required: true,
-  })
-  .help()
-  .alias("help", "h")
-  .parserConfiguration({
-    "parse-numbers": false,
-  });
-
 async function main() {
-  const LotteryAddress = "0x69e6851B0a0C5D94122AbdFDD4D190a4F9508d97";
+  const LotteryAddress = "0x69e6851B0a0C5D94122AbdFDD4D190a4F9508d97"; //Smart contract address for a specific lottery
   const rpc = "https://sepolia.base.org";
 
   const privateKey = "YOUR_PK"; //account 7
