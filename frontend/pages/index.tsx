@@ -83,22 +83,7 @@ export default function LandingPage() {
             {!session ? (
               <Auth />
             ) : (
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                }}
-              >
-                <Typography
-                  variant="h5"
-                  sx={{
-                    paddingY: '2rem',
-                  }}
-                >
-                  You still have an active session with Worldcoin.
-                </Typography>
-              </Box>
+              ''
             )}
           </Box>
         </Grid>
