@@ -83,12 +83,20 @@ export default function LotteryDetail() {
     : null;
   const { data, error, isLoading } = useSWR(apiUrl, fetcher);
 
+  const apiPrices =
+    "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR";
+  const {
+    data: ethPrices,
+    error: errorEthPrices,
+    isLoading: isLoadingEthPrices,
+  } = useSWR(apiPrices, fetcher);
+  const prize = bigIntToEth(balance as bigint);
   if (error) return <>Error...</>;
   if (isLoading) return <>Loading...</>;
   if (!session) {
     router.push("/");
   }
-  if (data) {
+  if (data && ethPrices) {
     const items: Item[] = data.items;
 
     return (
@@ -129,7 +137,8 @@ export default function LotteryDetail() {
             <Typography variant="body2" gutterBottom>
               Prize:
               <br />
-              {bigIntToEth(balance as bigint)} ETH <RedeemIcon />
+              <RedeemIcon /> {prize} ETH ~ ${" "}
+              {(ethPrices.USD * prize).toFixed(2)}
             </Typography>
           ) : (
             <>
