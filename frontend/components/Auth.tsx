@@ -25,44 +25,36 @@ export default function Auth() {
           gap: 5,
         }}
       >
-        <Link
-          href={`/api/auth/signin`}
-          style={{
-            textDecoration: 'none',
-            color: 'white',
+        <br />
+        <Button
+          sx={{
+            boxShadow: 'none',
+            width: '12rem',
+            height: '5rem',
+            textTransform: 'none',
+            borderRadius: '30px',
+            backgroundColor: '#1976D2',
+            '&:hover': {
+              backgroundColor: '#0052FF',
+            },
           }}
+          onClick={(e) => {
+            e.preventDefault();
+            signIn('worldcoin', {
+              callbackUrl: 'http://localhost:3000/games',
+            });
+          }}
+          variant={'contained'}
         >
-          <br />
-          <Button
+          <Typography
+            component="span"
             sx={{
-              boxShadow: 'none',
-              width: '10rem',
-              height: '4rem',
-              textTransform: 'none',
-              borderRadius: '30px',
-              backgroundColor: '#1976D2',
-              '&:hover': {
-                backgroundColor: '#0052FF',
-              },
+              fontSize: '1.5rem',
             }}
-            onClick={(e) => {
-              e.preventDefault();
-              signIn('worldcoin', {
-                callbackUrl: 'http://localhost:3000/stats',
-              });
-            }}
-            variant={'contained'}
           >
-            <Typography
-              component="span"
-              sx={{
-                fontSize: '1.5rem',
-              }}
-            >
-              Play now
-            </Typography>
-          </Button>
-        </Link>
+            Play now
+          </Typography>
+        </Button>
       </Box>
     );
   }
@@ -71,6 +63,17 @@ export default function Auth() {
     return (
       <Box sx={{ color: 'white' }}>
         <Button
+          sx={{
+            boxShadow: 'none',
+            width: '12rem',
+            height: '5rem',
+            textTransform: 'none',
+            borderRadius: '30px',
+            backgroundColor: '#1976D2',
+            '&:hover': {
+              backgroundColor: '#0052FF',
+            },
+          }}
           onClick={() => {
             signOut({ callbackUrl: 'http://localhost:3000/' });
           }}

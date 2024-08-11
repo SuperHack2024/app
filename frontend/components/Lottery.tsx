@@ -65,10 +65,10 @@ const Lottery: React.FC<LotteryProps> = ({ item, key }) => {
       <Card
         sx={{
           display: 'flex',
-          width: '700px',
+          width: '780px',
+          boxShadow: 'none',
           background: 'rgb(200, 230, 255)',
           borderRadius: '20px',
-          boxShadow: '10px 10px 8px rgba(0, 0, 0, 0.2)',
         }}
       >
         <Box>
@@ -81,9 +81,11 @@ const Lottery: React.FC<LotteryProps> = ({ item, key }) => {
         </Box>
         <CardContent>
           <Typography gutterBottom variant="h6" component="div">
-            {lotteryType === 0 ? 'Free Giveaway' : 'Paid Lottery Ticket'}
+            {lotteryType === 0
+              ? 'FREE Ethereum Giveaway'
+              : 'Ethereum Lottery Ticket'}
           </Typography>
-          <Link href={`/stats/${item}`}>
+          <Link href={`/games/${item}`}>
             <Typography variant="body2" color="text.secondary">
               {item}
             </Typography>
@@ -101,7 +103,7 @@ const Lottery: React.FC<LotteryProps> = ({ item, key }) => {
               )}
               <br />
               <br />
-              Ticket Price:
+              Ticket Price:{' '}
               {ticketPrice ? bigIntToEth(ticketPrice as bigint) : 0} ETH
             </Typography>
           </CardContent>
@@ -120,7 +122,7 @@ const Lottery: React.FC<LotteryProps> = ({ item, key }) => {
               });
             }}
           >
-            {lotteryType === 0 ? 'Participate' : 'Purchase Ticket'}
+            {lotteryType === 0 ? 'Join' : 'Buy Ticket'}
           </Button>
         </CardContent>
       </Card>

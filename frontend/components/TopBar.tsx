@@ -1,3 +1,4 @@
+'use client';
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -8,13 +9,23 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
 import { LogoIcon } from './Logo';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-const pages = ['How it works', 'Create Lottery', 'Partners', 'About'];
+const pages = [
+  { text: 'Games', url: 'games' },
+  { text: 'How to play', url: 'how-to-play' },
+  { text: 'Create Lottery', url: 'create-lottery' },
+  { text: 'Partners', url: 'partners' },
+  { text: 'About', url: 'about' },
+];
 
 function ResponsiveAppBar() {
+  const router = useRouter();
+  const { data: session, status } = useSession();
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -23,11 +34,14 @@ function ResponsiveAppBar() {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+  const handleCloseNavMenu = (url: string) => {
+    router.push(url);
   };
 
-  const { data: session, status } = useSession();
+  const handleLogoClick = () => {
+    router.push('/');
+  };
+
   return (
     <>
       <AppBar position="static" sx={{ marginY: '1rem' }} />
@@ -44,6 +58,7 @@ function ResponsiveAppBar() {
             }}
           >
             <LogoIcon
+              onClick={handleLogoClick}
               sx={{
                 pr: '5rem',
                 py: '1.5rem',
@@ -81,31 +96,81 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
+                <>
+                  <Link
+                    key={page.url}
+                    href={page.url}
+                    style={{
+                      textDecoration: 'none',
+                    }}
+                  >
+                    <Typography textAlign="center">{page.text}</Typography>
+                  </Link>
+                </>
               ))}
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{
-                  my: 2,
-                  mx: 2,
-                  display: 'flex',
-                  fontSize: '1.1rem',
-                  fontStyle: 'bold',
-                }}
-              >
-                {page}
-              </Button>
+              <>
+                <Link
+                  key={page.url}
+                  href={page.url}
+                  style={{
+                    textDecoration: 'none',
+                  }}
+                >
+                  <Typography
+                    textAlign="center"
+                    sx={{
+                      my: 2,
+                      mx: 2,
+                      display: 'flex',
+                      fontSize: '1.5rem',
+                      fontStyle: 'bold',
+                    }}
+                  >
+                    {page.text}
+                  </Typography>
+                </Link>
+              </>
             ))}
           </Box>
 
-          <Box sx={{ mr: 'none' }}>
+          {!session?.user && (
+            <Box sx={{ mr: 'none' }}>
+              <Button
+                sx={{
+                  boxShadow: 'none',
+                  width: '8rem',
+                  height: '3rem',
+                  textTransform: 'none',
+                  borderRadius: '30px',
+                  backgroundColor: '#1976D2',
+                  '&:hover': {
+                    backgroundColor: '#0052FF',
+                  },
+                }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  signIn('worldcoin', {
+                    callbackUrl: 'http://localhost:3000/games',
+                  });
+                }}
+                variant={'contained'}
+              >
+                <Typography
+                  component="span"
+                  sx={{
+                    fontSize: '1.5rem',
+                  }}
+                >
+                  Sign in
+                </Typography>
+              </Button>
+            </Box>
+          )}
+          {session?.user && (
             <Button
               sx={{
                 boxShadow: 'none',
@@ -120,9 +185,7 @@ function ResponsiveAppBar() {
               }}
               onClick={(e) => {
                 e.preventDefault();
-                signIn('worldcoin', {
-                  callbackUrl: 'http://localhost:3000/stats',
-                });
+                signOut({ callbackUrl: 'http://localhost:3000/' });
               }}
               variant={'contained'}
             >
@@ -132,10 +195,10 @@ function ResponsiveAppBar() {
                   fontSize: '1.5rem',
                 }}
               >
-                Sign in
+                Logout
               </Typography>
             </Button>
-          </Box>
+          )}
         </Toolbar>
       </Container>
     </>

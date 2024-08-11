@@ -42,3 +42,10 @@ iframe {
   border-radius: 0.5rem;
   filter: invert(1);
 }
+
+:root {
+  --w3m-button-background-color: white; /* Background color */
+  --w3m-button-border-radius: 20px; /* Rounded corners */
+  --w3m-button-color: #0052ff; /* Text color */
+  --w3m-button-hover-background-color: #0040cc; /* Hover background color */
+}
